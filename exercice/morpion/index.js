@@ -6,8 +6,8 @@ const tableau = [
     ["","",""]
 ];
 let tour = 0;
-let x = -1;
-let y = -1;
+let x = 0;
+let y = 0;
 
 const verifCaseVide = (tabl) => {
     for(const ta of tabl){
@@ -49,16 +49,14 @@ const verifLigne = (tabl) => {
 }
 
 const morpion = async () => {
-    
-    do{
-        
-        x = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée x`)
-        y = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée x`)
 
-        while(tableau[x][y] != "" ){
+    while(verifCaseVide(tableau) == true){
+        x = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée x`)
+        y = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée y`)
+
+        while(x<0 || x>2 || y<0 || y>2 || tableau[x][y] != ""){
             x = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée x`)
-            y = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée x`)
-            
+            y = await poserUneQuestion(`Joueur  ${tour%2 == 0 ? "X" : "Y"} Entrez une coordonnée y`) 
         }
 
         tableau[x][y] = tour%2 == 0 ? "X" : "Y"
@@ -67,7 +65,7 @@ const morpion = async () => {
             for(let l of ligne){
                 process.stdout.write(" |" + l + "| ");
             }
-         console.log('\n')   
+        console.log('\n')   
         }
         if(verifLigne(tableau) == true){
             console.log(`Joueur  ${tour%2 == 0 ? "X" : "Y"} à gagné`);
@@ -75,7 +73,7 @@ const morpion = async () => {
         }
         
         tour ++;
-    } while(verifCaseVide(tableau) == true);
+    }
 }
 
 morpion()
