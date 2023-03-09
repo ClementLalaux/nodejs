@@ -8,7 +8,7 @@ const app = express()
 
 app.use(express.json())
 
-data.remplirTableauxAuStart();
+
 
 app.get('/contacts',(req,res) => {
     res.json(data.contacts)
@@ -48,5 +48,5 @@ app.delete('/contacts/:id',(req,res) => {
 })
 
 app.listen(3000, () => {
-    console.log("go")
+    data.remplirTableauxAuStart();
 })
